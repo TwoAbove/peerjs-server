@@ -1,9 +1,14 @@
-const { Errors } = require('../../../enums');
+const { Errors } = require("../../../enums");
 
-module.exports = ({ config, realm }) => (req, res, next) => {
+module.exports = ({ config, realm }) => async (req, res, next) => {
   const { id, token, key } = req.params;
 
-  if (key !== config.key) {
+  let valid;
+  if (typeof config.validateKey === "function") {
+    valid = await config.validateKey(key);
+  }
+
+  if (valid || key !== config.key) {
     return res.status(401).send(Errors.INVALID_KEY);
   }
 
