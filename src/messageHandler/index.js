@@ -36,7 +36,7 @@ module.exports = ({ realm }) => {
     });
   };
 
-  const handleHeartbeat = (client) => heartbeatHandler(client);
+  const handleHeartbeat = client => heartbeatHandler(client);
 
   messageHandlers.registerHandler(MessageType.HEARTBEAT, handleHeartbeat);
   messageHandlers.registerHandler(MessageType.OFFER, handleTransmission);

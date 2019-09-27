@@ -17,7 +17,12 @@ module.exports = ({ config, realm, messageHandler }) => {
   });
 
   app.use('/:key', require('./v1/public')({ config, realm }));
-  app.use('/:key/:id/:token', authMiddleware, jsonParser, require('./v1/calls')({ realm, messageHandler }));
+  app.use(
+    '/:key/:id/:token',
+    authMiddleware,
+    jsonParser,
+    require('./v1/calls')({ realm, messageHandler })
+  );
 
   return app;
 };

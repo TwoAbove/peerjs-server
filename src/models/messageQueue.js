@@ -1,19 +1,19 @@
 class MessageQueue {
-  constructor (id) {
+  constructor(id) {
     this._id = id;
     this._lastReadAt = new Date().getTime();
     this._messages = [];
   }
 
-  getLastReadAt () {
+  getLastReadAt() {
     return this._lastReadAt;
   }
 
-  addMessage (message) {
+  addMessage(message) {
     this._messages.push(message);
   }
 
-  readMessage () {
+  readMessage() {
     if (this._messages.length > 0) {
       this._lastReadAt = new Date().getTime();
       return this._messages.shift();
@@ -22,7 +22,7 @@ class MessageQueue {
     return null;
   }
 
-  getMessages () {
+  getMessages() {
     return this._messages;
   }
 }

@@ -16,8 +16,10 @@ class WebSocketServer extends EventEmitter {
 
     this._wss = new WSS({ path, server });
 
-    this._wss.on('connection', (socket, req) => this._onSocketConnection(socket, req));
-    this._wss.on('error', (error) => this._onSocketError(error));
+    this._wss.on('connection', (socket, req) =>
+      this._onSocketConnection(socket, req)
+    );
+    this._wss.on('error', error => this._onSocketError(error));
   }
 
   _onSocketConnection(socket, req) {
@@ -38,10 +40,12 @@ class WebSocketServer extends EventEmitter {
     if (client) {
       if (token !== client.getToken()) {
         // ID-taken, invalid token
-        socket.send(JSON.stringify({
-          type: MessageType.ID_TAKEN,
-          payload: { msg: 'ID is taken' }
-        }));
+        socket.send(
+          JSON.stringify({
+            type: MessageType.ID_TAKEN,
+            payload: { msg: 'ID is taken' }
+          })
+        );
 
         return socket.close();
       }
@@ -84,7 +88,7 @@ class WebSocketServer extends EventEmitter {
     });
 
     // Handle messages from peers.
-    socket.on('message', (data) => {
+    socket.on('message', data => {
       try {
         const message = JSON.parse(data);
 

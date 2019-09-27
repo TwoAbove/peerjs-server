@@ -1,10 +1,10 @@
-const { Errors } = require("../../../enums");
+const { Errors } = require('../../../enums');
 
 module.exports = ({ config, realm }) => async (req, res, next) => {
   const { id, token, key } = req.params;
 
   let valid;
-  if (typeof config.validateKey === "function") {
+  if (typeof config.validateKey === 'function') {
     valid = await config.validateKey(key);
   }
 

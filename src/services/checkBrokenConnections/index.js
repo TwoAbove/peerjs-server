@@ -1,6 +1,11 @@
 const DEFAULT_CHECK_INTERVAL = 300;
 
-module.exports = ({ realm, config, checkInterval = DEFAULT_CHECK_INTERVAL, onClose = () => { } }) => {
+module.exports = ({
+  realm,
+  config,
+  checkInterval = DEFAULT_CHECK_INTERVAL,
+  onClose = () => {}
+}) => {
   const checkConnections = () => {
     const clientsIds = realm.getClientsIds();
 
@@ -16,7 +21,8 @@ module.exports = ({ realm, config, checkInterval = DEFAULT_CHECK_INTERVAL, onClo
       try {
         client.getSocket().close();
         // eslint-disable-next-line no-empty
-      } catch (e) { } finally {
+      } catch (e) {
+      } finally {
         realm.clearMessageQueue(clientId);
         realm.removeClientById(clientId);
         client.setSocket(null);
